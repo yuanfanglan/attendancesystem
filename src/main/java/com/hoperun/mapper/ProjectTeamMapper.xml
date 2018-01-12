@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hoperun.mapper.ProjectTeamMapper">
+  <resultMap id="BaseResultMap" type="com.hoperun.pojo.ProjectTeam">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="GROUP_ID" jdbcType="DECIMAL" property="groupId" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="MONTH_TIME" jdbcType="TIMESTAMP" property="monthTime" />
+    <result column="AUDITOR" jdbcType="DECIMAL" property="auditor" />
+    <result column="BACK_REASON" jdbcType="VARCHAR" property="backReason" />
+    <result column="RES_REASON" jdbcType="VARCHAR" property="resReason" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, GROUP_ID, STATE, MONTH_TIME, AUDITOR, BACK_REASON, RES_REASON
+  </sql>
+  <select id="selectByExample" parameterType="com.hoperun.pojo.ProjectTeamExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROJECT_TEAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PROJECT_TEAM
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from PROJECT_TEAM
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hoperun.pojo.ProjectTeamExample">
+    delete from PROJECT_TEAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hoperun.pojo.ProjectTeam">
+    insert into PROJECT_TEAM (ID, GROUP_ID, STATE, 
+      MONTH_TIME, AUDITOR, BACK_REASON, 
+      RES_REASON)
+    values (#{id,jdbcType=DECIMAL}, #{groupId,jdbcType=DECIMAL}, #{state,jdbcType=VARCHAR}, 
+      #{monthTime,jdbcType=TIMESTAMP}, #{auditor,jdbcType=DECIMAL}, #{backReason,jdbcType=VARCHAR}, 
+      #{resReason,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hoperun.pojo.ProjectTeam">
+    insert into PROJECT_TEAM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="groupId != null">
+        GROUP_ID,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="monthTime != null">
+        MONTH_TIME,
+      </if>
+      <if test="auditor != null">
+        AUDITOR,
+      </if>
+      <if test="backReason != null">
+        BACK_REASON,
+      </if>
+      <if test="resReason != null">
+        RES_REASON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="monthTime != null">
+        #{monthTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=DECIMAL},
+      </if>
+      <if test="backReason != null">
+        #{backReason,jdbcType=VARCHAR},
+      </if>
+      <if test="resReason != null">
+        #{resReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hoperun.pojo.ProjectTeamExample" resultType="java.lang.Integer">
+    select count(*) from PROJECT_TEAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update PROJECT_TEAM
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupId != null">
+        GROUP_ID = #{record.groupId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monthTime != null">
+        MONTH_TIME = #{record.monthTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditor != null">
+        AUDITOR = #{record.auditor,jdbcType=DECIMAL},
+      </if>
+      <if test="record.backReason != null">
+        BACK_REASON = #{record.backReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resReason != null">
+        RES_REASON = #{record.resReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update PROJECT_TEAM
+    set ID = #{record.id,jdbcType=DECIMAL},
+      GROUP_ID = #{record.groupId,jdbcType=DECIMAL},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      MONTH_TIME = #{record.monthTime,jdbcType=TIMESTAMP},
+      AUDITOR = #{record.auditor,jdbcType=DECIMAL},
+      BACK_REASON = #{record.backReason,jdbcType=VARCHAR},
+      RES_REASON = #{record.resReason,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hoperun.pojo.ProjectTeam">
+    update PROJECT_TEAM
+    <set>
+      <if test="groupId != null">
+        GROUP_ID = #{groupId,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="monthTime != null">
+        MONTH_TIME = #{monthTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null">
+        AUDITOR = #{auditor,jdbcType=DECIMAL},
+      </if>
+      <if test="backReason != null">
+        BACK_REASON = #{backReason,jdbcType=VARCHAR},
+      </if>
+      <if test="resReason != null">
+        RES_REASON = #{resReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hoperun.pojo.ProjectTeam">
+    update PROJECT_TEAM
+    set GROUP_ID = #{groupId,jdbcType=DECIMAL},
+      STATE = #{state,jdbcType=VARCHAR},
+      MONTH_TIME = #{monthTime,jdbcType=TIMESTAMP},
+      AUDITOR = #{auditor,jdbcType=DECIMAL},
+      BACK_REASON = #{backReason,jdbcType=VARCHAR},
+      RES_REASON = #{resReason,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

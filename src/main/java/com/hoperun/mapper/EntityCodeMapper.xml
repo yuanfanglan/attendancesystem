@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hoperun.mapper.EntityCodeMapper">
+  <resultMap id="BaseResultMap" type="com.hoperun.pojo.EntityCode">
+    <id column="CODE_ID" jdbcType="DECIMAL" property="codeId" />
+    <result column="ENTITY_CODE" jdbcType="VARCHAR" property="entityCode" />
+    <result column="ENTITY_NAME" jdbcType="VARCHAR" property="entityName" />
+    <result column="PARENT_CODE" jdbcType="VARCHAR" property="parentCode" />
+    <result column="BEGIN_DATE" jdbcType="TIMESTAMP" property="beginDate" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="SYSTEM_FLAG" jdbcType="DECIMAL" property="systemFlag" />
+    <result column="RESERVED_PARAM1" jdbcType="VARCHAR" property="reservedParam1" />
+    <result column="RESERVED_PARAM2" jdbcType="VARCHAR" property="reservedParam2" />
+    <result column="RESERVED_PARAM3" jdbcType="VARCHAR" property="reservedParam3" />
+    <result column="RESERVED_PARAM4" jdbcType="VARCHAR" property="reservedParam4" />
+    <result column="RESERVED_PARAM5" jdbcType="VARCHAR" property="reservedParam5" />
+    <result column="RESERVED_PARAM6" jdbcType="VARCHAR" property="reservedParam6" />
+    <result column="RESERVED_PARAM7" jdbcType="VARCHAR" property="reservedParam7" />
+    <result column="RESERVED_PARAM8" jdbcType="VARCHAR" property="reservedParam8" />
+    <result column="RESERVED_PARAM9" jdbcType="VARCHAR" property="reservedParam9" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="TOP_CODE" jdbcType="VARCHAR" property="topCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CODE_ID, ENTITY_CODE, ENTITY_NAME, PARENT_CODE, BEGIN_DATE, END_DATE, REMARKS, STATUS, 
+    SYSTEM_FLAG, RESERVED_PARAM1, RESERVED_PARAM2, RESERVED_PARAM3, RESERVED_PARAM4, 
+    RESERVED_PARAM5, RESERVED_PARAM6, RESERVED_PARAM7, RESERVED_PARAM8, RESERVED_PARAM9, 
+    CREATE_TIME, UPDATE_TIME, TOP_CODE
+  </sql>
+  <select id="selectByExample" parameterType="com.hoperun.pojo.EntityCodeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ENTITY_CODE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ENTITY_CODE
+    where CODE_ID = #{codeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ENTITY_CODE
+    where CODE_ID = #{codeId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hoperun.pojo.EntityCodeExample">
+    delete from ENTITY_CODE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hoperun.pojo.EntityCode">
+    insert into ENTITY_CODE (CODE_ID, ENTITY_CODE, ENTITY_NAME, 
+      PARENT_CODE, BEGIN_DATE, END_DATE, 
+      REMARKS, STATUS, SYSTEM_FLAG, 
+      RESERVED_PARAM1, RESERVED_PARAM2, RESERVED_PARAM3, 
+      RESERVED_PARAM4, RESERVED_PARAM5, RESERVED_PARAM6, 
+      RESERVED_PARAM7, RESERVED_PARAM8, RESERVED_PARAM9, 
+      CREATE_TIME, UPDATE_TIME, TOP_CODE
+      )
+    values (#{codeId,jdbcType=DECIMAL}, #{entityCode,jdbcType=VARCHAR}, #{entityName,jdbcType=VARCHAR}, 
+      #{parentCode,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, #{systemFlag,jdbcType=DECIMAL}, 
+      #{reservedParam1,jdbcType=VARCHAR}, #{reservedParam2,jdbcType=VARCHAR}, #{reservedParam3,jdbcType=VARCHAR}, 
+      #{reservedParam4,jdbcType=VARCHAR}, #{reservedParam5,jdbcType=VARCHAR}, #{reservedParam6,jdbcType=VARCHAR}, 
+      #{reservedParam7,jdbcType=VARCHAR}, #{reservedParam8,jdbcType=VARCHAR}, #{reservedParam9,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{topCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hoperun.pojo.EntityCode">
+    insert into ENTITY_CODE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="codeId != null">
+        CODE_ID,
+      </if>
+      <if test="entityCode != null">
+        ENTITY_CODE,
+      </if>
+      <if test="entityName != null">
+        ENTITY_NAME,
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE,
+      </if>
+      <if test="beginDate != null">
+        BEGIN_DATE,
+      </if>
+      <if test="endDate != null">
+        END_DATE,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="systemFlag != null">
+        SYSTEM_FLAG,
+      </if>
+      <if test="reservedParam1 != null">
+        RESERVED_PARAM1,
+      </if>
+      <if test="reservedParam2 != null">
+        RESERVED_PARAM2,
+      </if>
+      <if test="reservedParam3 != null">
+        RESERVED_PARAM3,
+      </if>
+      <if test="reservedParam4 != null">
+        RESERVED_PARAM4,
+      </if>
+      <if test="reservedParam5 != null">
+        RESERVED_PARAM5,
+      </if>
+      <if test="reservedParam6 != null">
+        RESERVED_PARAM6,
+      </if>
+      <if test="reservedParam7 != null">
+        RESERVED_PARAM7,
+      </if>
+      <if test="reservedParam8 != null">
+        RESERVED_PARAM8,
+      </if>
+      <if test="reservedParam9 != null">
+        RESERVED_PARAM9,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="topCode != null">
+        TOP_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="codeId != null">
+        #{codeId,jdbcType=DECIMAL},
+      </if>
+      <if test="entityCode != null">
+        #{entityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="entityName != null">
+        #{entityName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null">
+        #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="systemFlag != null">
+        #{systemFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="reservedParam1 != null">
+        #{reservedParam1,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam2 != null">
+        #{reservedParam2,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam3 != null">
+        #{reservedParam3,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam4 != null">
+        #{reservedParam4,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam5 != null">
+        #{reservedParam5,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam6 != null">
+        #{reservedParam6,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam7 != null">
+        #{reservedParam7,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam8 != null">
+        #{reservedParam8,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam9 != null">
+        #{reservedParam9,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topCode != null">
+        #{topCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hoperun.pojo.EntityCodeExample" resultType="java.lang.Integer">
+    select count(*) from ENTITY_CODE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ENTITY_CODE
+    <set>
+      <if test="record.codeId != null">
+        CODE_ID = #{record.codeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.entityCode != null">
+        ENTITY_CODE = #{record.entityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entityName != null">
+        ENTITY_NAME = #{record.entityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentCode != null">
+        PARENT_CODE = #{record.parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginDate != null">
+        BEGIN_DATE = #{record.beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endDate != null">
+        END_DATE = #{record.endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remarks != null">
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.systemFlag != null">
+        SYSTEM_FLAG = #{record.systemFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reservedParam1 != null">
+        RESERVED_PARAM1 = #{record.reservedParam1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservedParam2 != null">
+        RESERVED_PARAM2 = #{record.reservedParam2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservedParam3 != null">
+        RESERVED_PARAM3 = #{record.reservedParam3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservedParam4 != null">
+        RESERVED_PARAM4 = #{record.reservedParam4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservedParam5 != null">
+        RESERVED_PARAM5 = #{record.reservedParam5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservedParam6 != null">
+        RESERVED_PARAM6 = #{record.reservedParam6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservedParam7 != null">
+        RESERVED_PARAM7 = #{record.reservedParam7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservedParam8 != null">
+        RESERVED_PARAM8 = #{record.reservedParam8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservedParam9 != null">
+        RESERVED_PARAM9 = #{record.reservedParam9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.topCode != null">
+        TOP_CODE = #{record.topCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ENTITY_CODE
+    set CODE_ID = #{record.codeId,jdbcType=DECIMAL},
+      ENTITY_CODE = #{record.entityCode,jdbcType=VARCHAR},
+      ENTITY_NAME = #{record.entityName,jdbcType=VARCHAR},
+      PARENT_CODE = #{record.parentCode,jdbcType=VARCHAR},
+      BEGIN_DATE = #{record.beginDate,jdbcType=TIMESTAMP},
+      END_DATE = #{record.endDate,jdbcType=TIMESTAMP},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      SYSTEM_FLAG = #{record.systemFlag,jdbcType=DECIMAL},
+      RESERVED_PARAM1 = #{record.reservedParam1,jdbcType=VARCHAR},
+      RESERVED_PARAM2 = #{record.reservedParam2,jdbcType=VARCHAR},
+      RESERVED_PARAM3 = #{record.reservedParam3,jdbcType=VARCHAR},
+      RESERVED_PARAM4 = #{record.reservedParam4,jdbcType=VARCHAR},
+      RESERVED_PARAM5 = #{record.reservedParam5,jdbcType=VARCHAR},
+      RESERVED_PARAM6 = #{record.reservedParam6,jdbcType=VARCHAR},
+      RESERVED_PARAM7 = #{record.reservedParam7,jdbcType=VARCHAR},
+      RESERVED_PARAM8 = #{record.reservedParam8,jdbcType=VARCHAR},
+      RESERVED_PARAM9 = #{record.reservedParam9,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      TOP_CODE = #{record.topCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hoperun.pojo.EntityCode">
+    update ENTITY_CODE
+    <set>
+      <if test="entityCode != null">
+        ENTITY_CODE = #{entityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="entityName != null">
+        ENTITY_NAME = #{entityName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null">
+        BEGIN_DATE = #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="systemFlag != null">
+        SYSTEM_FLAG = #{systemFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="reservedParam1 != null">
+        RESERVED_PARAM1 = #{reservedParam1,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam2 != null">
+        RESERVED_PARAM2 = #{reservedParam2,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam3 != null">
+        RESERVED_PARAM3 = #{reservedParam3,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam4 != null">
+        RESERVED_PARAM4 = #{reservedParam4,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam5 != null">
+        RESERVED_PARAM5 = #{reservedParam5,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam6 != null">
+        RESERVED_PARAM6 = #{reservedParam6,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam7 != null">
+        RESERVED_PARAM7 = #{reservedParam7,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam8 != null">
+        RESERVED_PARAM8 = #{reservedParam8,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedParam9 != null">
+        RESERVED_PARAM9 = #{reservedParam9,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topCode != null">
+        TOP_CODE = #{topCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CODE_ID = #{codeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hoperun.pojo.EntityCode">
+    update ENTITY_CODE
+    set ENTITY_CODE = #{entityCode,jdbcType=VARCHAR},
+      ENTITY_NAME = #{entityName,jdbcType=VARCHAR},
+      PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      BEGIN_DATE = #{beginDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      SYSTEM_FLAG = #{systemFlag,jdbcType=DECIMAL},
+      RESERVED_PARAM1 = #{reservedParam1,jdbcType=VARCHAR},
+      RESERVED_PARAM2 = #{reservedParam2,jdbcType=VARCHAR},
+      RESERVED_PARAM3 = #{reservedParam3,jdbcType=VARCHAR},
+      RESERVED_PARAM4 = #{reservedParam4,jdbcType=VARCHAR},
+      RESERVED_PARAM5 = #{reservedParam5,jdbcType=VARCHAR},
+      RESERVED_PARAM6 = #{reservedParam6,jdbcType=VARCHAR},
+      RESERVED_PARAM7 = #{reservedParam7,jdbcType=VARCHAR},
+      RESERVED_PARAM8 = #{reservedParam8,jdbcType=VARCHAR},
+      RESERVED_PARAM9 = #{reservedParam9,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      TOP_CODE = #{topCode,jdbcType=VARCHAR}
+    where CODE_ID = #{codeId,jdbcType=DECIMAL}
+  </update>
+</mapper>

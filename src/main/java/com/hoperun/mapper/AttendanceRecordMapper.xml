@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hoperun.mapper.AttendanceRecordMapper">
+  <resultMap id="BaseResultMap" type="com.hoperun.pojo.AttendanceRecord">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="SIGN_IN_LOCATION" jdbcType="VARCHAR" property="signInLocation" />
+    <result column="SIGN_OUT_LOCATION" jdbcType="VARCHAR" property="signOutLocation" />
+    <result column="COMMENTS" jdbcType="VARCHAR" property="comments" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CURRENT_TIME" jdbcType="TIMESTAMP" property="currentTime" />
+    <result column="EMPLOYEE_NUMBER" jdbcType="VARCHAR" property="employeeNumber" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="FOUNDER" jdbcType="VARCHAR" property="founder" />
+    <result column="MEAL_SUBSIDY" jdbcType="DECIMAL" property="mealSubsidy" />
+    <result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
+    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="OVER_TIME" jdbcType="DECIMAL" property="overTime" />
+    <result column="OT_TYPE" jdbcType="VARCHAR" property="otType" />
+    <result column="PG_LEADER" jdbcType="VARCHAR" property="pgLeader" />
+    <result column="REASON" jdbcType="VARCHAR" property="reason" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="VACATE_TIME" jdbcType="DECIMAL" property="vacateTime" />
+    <result column="VACATE_TYPE" jdbcType="VARCHAR" property="vacateType" />
+    <result column="VERIFIER" jdbcType="VARCHAR" property="verifier" />
+    <result column="VACATE_REASON" jdbcType="VARCHAR" property="vacateReason" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, SIGN_IN_LOCATION, SIGN_OUT_LOCATION, COMMENTS, CREATE_TIME, CURRENT_TIME, EMPLOYEE_NUMBER, 
+    END_TIME, FOUNDER, MEAL_SUBSIDY, MODIFIER, MODIFY_TIME, OVER_TIME, OT_TYPE, PG_LEADER, 
+    REASON, START_TIME, STATE, VACATE_TIME, VACATE_TYPE, VERIFIER, VACATE_REASON
+  </sql>
+  <select id="selectByExample" parameterType="com.hoperun.pojo.AttendanceRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ATTENDANCE_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ATTENDANCE_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ATTENDANCE_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hoperun.pojo.AttendanceRecordExample">
+    delete from ATTENDANCE_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hoperun.pojo.AttendanceRecord">
+    insert into ATTENDANCE_RECORD (ID, SIGN_IN_LOCATION, SIGN_OUT_LOCATION, 
+      COMMENTS, CREATE_TIME, CURRENT_TIME, 
+      EMPLOYEE_NUMBER, END_TIME, FOUNDER, 
+      MEAL_SUBSIDY, MODIFIER, MODIFY_TIME, 
+      OVER_TIME, OT_TYPE, PG_LEADER, 
+      REASON, START_TIME, STATE, 
+      VACATE_TIME, VACATE_TYPE, VERIFIER, 
+      VACATE_REASON)
+    values (#{id,jdbcType=DECIMAL}, #{signInLocation,jdbcType=VARCHAR}, #{signOutLocation,jdbcType=VARCHAR}, 
+      #{comments,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{currentTime,jdbcType=TIMESTAMP}, 
+      #{employeeNumber,jdbcType=VARCHAR}, #{endTime,jdbcType=TIMESTAMP}, #{founder,jdbcType=VARCHAR}, 
+      #{mealSubsidy,jdbcType=DECIMAL}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{overTime,jdbcType=DECIMAL}, #{otType,jdbcType=VARCHAR}, #{pgLeader,jdbcType=VARCHAR}, 
+      #{reason,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, 
+      #{vacateTime,jdbcType=DECIMAL}, #{vacateType,jdbcType=VARCHAR}, #{verifier,jdbcType=VARCHAR}, 
+      #{vacateReason,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hoperun.pojo.AttendanceRecord">
+    insert into ATTENDANCE_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="signInLocation != null">
+        SIGN_IN_LOCATION,
+      </if>
+      <if test="signOutLocation != null">
+        SIGN_OUT_LOCATION,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="currentTime != null">
+        CURRENT_TIME,
+      </if>
+      <if test="employeeNumber != null">
+        EMPLOYEE_NUMBER,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="founder != null">
+        FOUNDER,
+      </if>
+      <if test="mealSubsidy != null">
+        MEAL_SUBSIDY,
+      </if>
+      <if test="modifier != null">
+        MODIFIER,
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME,
+      </if>
+      <if test="overTime != null">
+        OVER_TIME,
+      </if>
+      <if test="otType != null">
+        OT_TYPE,
+      </if>
+      <if test="pgLeader != null">
+        PG_LEADER,
+      </if>
+      <if test="reason != null">
+        REASON,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="vacateTime != null">
+        VACATE_TIME,
+      </if>
+      <if test="vacateType != null">
+        VACATE_TYPE,
+      </if>
+      <if test="verifier != null">
+        VERIFIER,
+      </if>
+      <if test="vacateReason != null">
+        VACATE_REASON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="signInLocation != null">
+        #{signInLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutLocation != null">
+        #{signOutLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentTime != null">
+        #{currentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="employeeNumber != null">
+        #{employeeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="founder != null">
+        #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="mealSubsidy != null">
+        #{mealSubsidy,jdbcType=DECIMAL},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overTime != null">
+        #{overTime,jdbcType=DECIMAL},
+      </if>
+      <if test="otType != null">
+        #{otType,jdbcType=VARCHAR},
+      </if>
+      <if test="pgLeader != null">
+        #{pgLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="vacateTime != null">
+        #{vacateTime,jdbcType=DECIMAL},
+      </if>
+      <if test="vacateType != null">
+        #{vacateType,jdbcType=VARCHAR},
+      </if>
+      <if test="verifier != null">
+        #{verifier,jdbcType=VARCHAR},
+      </if>
+      <if test="vacateReason != null">
+        #{vacateReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hoperun.pojo.AttendanceRecordExample" resultType="java.lang.Integer">
+    select count(*) from ATTENDANCE_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ATTENDANCE_RECORD
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.signInLocation != null">
+        SIGN_IN_LOCATION = #{record.signInLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signOutLocation != null">
+        SIGN_OUT_LOCATION = #{record.signOutLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comments != null">
+        COMMENTS = #{record.comments,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.currentTime != null">
+        CURRENT_TIME = #{record.currentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.employeeNumber != null">
+        EMPLOYEE_NUMBER = #{record.employeeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null">
+        END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.founder != null">
+        FOUNDER = #{record.founder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mealSubsidy != null">
+        MEAL_SUBSIDY = #{record.mealSubsidy,jdbcType=DECIMAL},
+      </if>
+      <if test="record.modifier != null">
+        MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyTime != null">
+        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.overTime != null">
+        OVER_TIME = #{record.overTime,jdbcType=DECIMAL},
+      </if>
+      <if test="record.otType != null">
+        OT_TYPE = #{record.otType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pgLeader != null">
+        PG_LEADER = #{record.pgLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reason != null">
+        REASON = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null">
+        START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vacateTime != null">
+        VACATE_TIME = #{record.vacateTime,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vacateType != null">
+        VACATE_TYPE = #{record.vacateType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.verifier != null">
+        VERIFIER = #{record.verifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vacateReason != null">
+        VACATE_REASON = #{record.vacateReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ATTENDANCE_RECORD
+    set ID = #{record.id,jdbcType=DECIMAL},
+      SIGN_IN_LOCATION = #{record.signInLocation,jdbcType=VARCHAR},
+      SIGN_OUT_LOCATION = #{record.signOutLocation,jdbcType=VARCHAR},
+      COMMENTS = #{record.comments,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CURRENT_TIME = #{record.currentTime,jdbcType=TIMESTAMP},
+      EMPLOYEE_NUMBER = #{record.employeeNumber,jdbcType=VARCHAR},
+      END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      FOUNDER = #{record.founder,jdbcType=VARCHAR},
+      MEAL_SUBSIDY = #{record.mealSubsidy,jdbcType=DECIMAL},
+      MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      OVER_TIME = #{record.overTime,jdbcType=DECIMAL},
+      OT_TYPE = #{record.otType,jdbcType=VARCHAR},
+      PG_LEADER = #{record.pgLeader,jdbcType=VARCHAR},
+      REASON = #{record.reason,jdbcType=VARCHAR},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      VACATE_TIME = #{record.vacateTime,jdbcType=DECIMAL},
+      VACATE_TYPE = #{record.vacateType,jdbcType=VARCHAR},
+      VERIFIER = #{record.verifier,jdbcType=VARCHAR},
+      VACATE_REASON = #{record.vacateReason,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hoperun.pojo.AttendanceRecord">
+    update ATTENDANCE_RECORD
+    <set>
+      <if test="signInLocation != null">
+        SIGN_IN_LOCATION = #{signInLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutLocation != null">
+        SIGN_OUT_LOCATION = #{signOutLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentTime != null">
+        CURRENT_TIME = #{currentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="employeeNumber != null">
+        EMPLOYEE_NUMBER = #{employeeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="founder != null">
+        FOUNDER = #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="mealSubsidy != null">
+        MEAL_SUBSIDY = #{mealSubsidy,jdbcType=DECIMAL},
+      </if>
+      <if test="modifier != null">
+        MODIFIER = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overTime != null">
+        OVER_TIME = #{overTime,jdbcType=DECIMAL},
+      </if>
+      <if test="otType != null">
+        OT_TYPE = #{otType,jdbcType=VARCHAR},
+      </if>
+      <if test="pgLeader != null">
+        PG_LEADER = #{pgLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="vacateTime != null">
+        VACATE_TIME = #{vacateTime,jdbcType=DECIMAL},
+      </if>
+      <if test="vacateType != null">
+        VACATE_TYPE = #{vacateType,jdbcType=VARCHAR},
+      </if>
+      <if test="verifier != null">
+        VERIFIER = #{verifier,jdbcType=VARCHAR},
+      </if>
+      <if test="vacateReason != null">
+        VACATE_REASON = #{vacateReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hoperun.pojo.AttendanceRecord">
+    update ATTENDANCE_RECORD
+    set SIGN_IN_LOCATION = #{signInLocation,jdbcType=VARCHAR},
+      SIGN_OUT_LOCATION = #{signOutLocation,jdbcType=VARCHAR},
+      COMMENTS = #{comments,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CURRENT_TIME = #{currentTime,jdbcType=TIMESTAMP},
+      EMPLOYEE_NUMBER = #{employeeNumber,jdbcType=VARCHAR},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      FOUNDER = #{founder,jdbcType=VARCHAR},
+      MEAL_SUBSIDY = #{mealSubsidy,jdbcType=DECIMAL},
+      MODIFIER = #{modifier,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      OVER_TIME = #{overTime,jdbcType=DECIMAL},
+      OT_TYPE = #{otType,jdbcType=VARCHAR},
+      PG_LEADER = #{pgLeader,jdbcType=VARCHAR},
+      REASON = #{reason,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      STATE = #{state,jdbcType=VARCHAR},
+      VACATE_TIME = #{vacateTime,jdbcType=DECIMAL},
+      VACATE_TYPE = #{vacateType,jdbcType=VARCHAR},
+      VERIFIER = #{verifier,jdbcType=VARCHAR},
+      VACATE_REASON = #{vacateReason,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>
