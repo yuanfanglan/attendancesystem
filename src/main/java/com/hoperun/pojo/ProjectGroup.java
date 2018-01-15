@@ -55,4 +55,10 @@ public class ProjectGroup {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+	@Override
+	public String toString() {
+		return "ProjectGroup [id=" + id + ", name=" + name + ", code=" + code + ", parentId=" + parentId + ", userId="
+				+ userId + "]";
+	}
 }

@@ -200,4 +200,15 @@ public class RbacUserInfo {
 	public void setGender(String gender) {
 		this.gender = gender == null ? null : gender.trim();
 	}
+
+	@Override
+	public String toString() {
+		return "RbacUserInfo [id=" + id + ", birthDate=" + birthDate + ", createTime=" + createTime + ", degree="
+				+ degree + ", employeeNumber=" + employeeNumber + ", founder=" + founder + ", ifOnDuty=" + ifOnDuty
+				+ ", leaveDate=" + leaveDate + ", modifier=" + modifier + ", modifyTime=" + modifyTime + ", name="
+				+ name + ", password=" + password + ", number1=" + number1 + ", number2=" + number2 + ", number3="
+				+ number3 + ", number4=" + number4 + ", organizationId=" + organizationId + ", gender=" + gender
+				+ ", organization=" + organization + "]";
+	}
+	
 }

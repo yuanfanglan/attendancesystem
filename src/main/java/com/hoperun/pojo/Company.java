@@ -35,4 +35,9 @@ public class Company {
     public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
+
+	@Override
+	public String toString() {
+		return "Company [id=" + id + ", name=" + name + ", parentId=" + parentId + "]";
+	}
 }

@@ -1,5 +1,7 @@
 package com.hoperun.common.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -43,4 +45,20 @@ public class DateUtil {
 		}
 		return new Date(year, month + 1, 1);
 	};
+	
+	/**
+	 * 格式化获取的日期并返回date类型
+	 * @param date
+	 * @return
+	 * @throws ParseException 
+	 * */
+	public static Date dateFormate(String date) throws ParseException{
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		//将传过来的string类型转为date类型
+		Date parse = sdf.parse(date);
+		//format的是date类型数据
+		String format = sdf.format(parse);
+		Date parse2 = sdf.parse(format);
+		return parse2;
+	}
 }

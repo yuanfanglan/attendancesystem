@@ -15,7 +15,7 @@ public interface RbacUserInfoMapper {
 	int deleteByExample(RbacUserInfoExample example);    
 	//根据id删除
 	int deleteByPrimaryKey(Long id);
-
+    //插入员工
 	int insert(RbacUserInfo record);
 
 	int insertSelective(RbacUserInfo record);
@@ -41,7 +41,7 @@ public interface RbacUserInfoMapper {
 			+ "c.company_id,c.companyName,c.department_id,c.departmentName FROM RBAC_USER_INFO rui,organization o,\n"
 			+ "(select g1.id group_id,g1.name groupName,g2.id team_id,g2.name teamName FROM PROJECT_GROUP g1,PROJECT_GROUP g2 where g2.parent_id=g1.id) pg,\n"
 			+ "(select c1.id company_id,c1.name companyName,c2.id department_id,c2.name departmentName FROM company c1 ,company c2 where C2.PARENT_ID=C1.id) c\n"
-			+ "where rui.id=o.user_id\n"
+			+ "where rui.organization_id=o.id\n"
 			+ "and o.COMPANY=c.company_id\n"
 			+ "and o.DEPARTMENT=c.department_id\n"
 			+ "and o.program=PG.group_id\n"
@@ -74,7 +74,7 @@ public interface RbacUserInfoMapper {
 			+ "c.company_id,c.companyName,c.department_id,c.departmentName FROM RBAC_USER_INFO rui,organization o,\n"
 			+ "(select g1.id group_id,g1.name groupName,g2.id team_id,g2.name teamName FROM PROJECT_GROUP g1,PROJECT_GROUP g2 where g2.parent_id=g1.id) pg,\n"
 			+ "(select c1.id company_id,c1.name companyName,c2.id department_id,c2.name departmentName FROM company c1 ,company c2 where C2.PARENT_ID=C1.id) c\n"
-			+ "where rui.id=o.user_id\n"
+			+ "where rui.organization_id=o.id\n"
 			+ "and o.COMPANY=c.company_id\n"
 			+ "and o.DEPARTMENT=c.department_id\n"
 			+ "and o.program=PG.group_id\n"
@@ -102,7 +102,7 @@ public interface RbacUserInfoMapper {
 			+ "c.company_id,c.companyName,c.department_id,c.departmentName FROM RBAC_USER_INFO rui,organization o,\n"
 			+ "(select g1.id group_id,g1.name groupName,g2.id team_id,g2.name teamName FROM PROJECT_GROUP g1,PROJECT_GROUP g2 where g2.parent_id=g1.id) pg,\n"
 			+ "(select c1.id company_id,c1.name companyName,c2.id department_id,c2.name departmentName FROM company c1 ,company c2 where C2.PARENT_ID=C1.id) c\n"
-			+ "where rui.id=o.user_id\n"
+			+ "where rui.organization_id=o.id\n"
 			+ "and o.COMPANY=c.company_id\n"
 			+ "and o.DEPARTMENT=c.department_id\n"
 			+ "and o.program=PG.group_id\n"
@@ -130,7 +130,7 @@ public interface RbacUserInfoMapper {
 			+ "c.company_id,c.companyName,c.department_id,c.departmentName FROM RBAC_USER_INFO rui,organization o,\n"
 			+ "(select g1.id group_id,g1.name groupName,g2.id team_id,g2.name teamName FROM PROJECT_GROUP g1,PROJECT_GROUP g2 where g2.parent_id=g1.id) pg,\n"
 			+ "(select c1.id company_id,c1.name companyName,c2.id department_id,c2.name departmentName FROM company c1 ,company c2 where C2.PARENT_ID=C1.id) c\n"
-			+ "where rui.id=o.user_id\n"
+			+ "where rui.organization_id=o.id\n"
 			+ "and o.COMPANY=c.company_id\n"
 			+ "and o.DEPARTMENT=c.department_id\n"
 			+ "and o.program=PG.group_id\n"

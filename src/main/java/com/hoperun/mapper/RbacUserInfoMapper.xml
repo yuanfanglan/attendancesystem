@@ -115,6 +115,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.hoperun.pojo.RbacUserInfo">
+    <selectKey keyColumn="ID" keyProperty="id" resultType="java.lang.Long" order="BEFORE">
+    select seq_user.nextval from dual
+    </selectKey>
     insert into RBAC_USER_INFO (ID, BIRTH_DATE, CREATE_TIME, 
       DEGREE, EMPLOYEE_NUMBER, FOUNDER, 
       IF_ON_DUTY, LEAVE_DATE, MODIFIER, 
@@ -122,7 +125,7 @@
       NUMBER1, NUMBER2, NUMBER3, 
       NUMBER4, ORGANIZATION_ID, GENDER
       )
-    values (#{id,jdbcType=DECIMAL}, #{birthDate,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=DECIMAL}, (#{birthDate,jdbcType=TIMESTAMP}), #{createTime,jdbcType=TIMESTAMP}, 
       #{degree,jdbcType=VARCHAR}, #{employeeNumber,jdbcType=VARCHAR}, #{founder,jdbcType=VARCHAR}, 
       #{ifOnDuty,jdbcType=VARCHAR}, #{leaveDate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
       #{modifyTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 

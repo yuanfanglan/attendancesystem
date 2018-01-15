@@ -44,15 +44,16 @@ public class RbacUserInfoServiceImpl implements RbacUserInfoService {
 		int number1=rbacUserInfoMapper.deleteByPrimaryKey(id);
 		int number2 = organizationMapper.deleteByUserId(id);
 		if (number1>0&&number2>0) {
-		return new AjaxResult().success("删除成功");	
+			return new AjaxResult().success("删除成功");	
 		}else {
 			return new AjaxResult().failure("删除失败");
 		}
-		
+
 	}
 
+	
 	@Override
-	public int insert(RbacUserInfo record) {
+	public int insert(RbacUserInfo rbacUserInfo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -109,8 +110,8 @@ public class RbacUserInfoServiceImpl implements RbacUserInfoService {
 			return new AjaxResult().failure("账户或者密码错误");
 		}
 	}
-	
-    //修改密码
+
+	//修改密码
 	@Override
 	@Transactional(rollbackFor=Exception.class)
 	public AjaxResult updateByEmployeeNumber(RbacUserInfo rbacUserInfo) {
@@ -121,8 +122,8 @@ public class RbacUserInfoServiceImpl implements RbacUserInfoService {
 			return new AjaxResult().failure("更新失败");
 		}
 	}
-	
-    //根据员工工号查询所有信息
+
+	//根据员工工号查询所有信息
 	@Override
 	public AjaxResult selectByEmployeeNumber(String employeeNumber) {
 		RbacUserInfo rbacUserInfo = rbacUserInfoMapper.selectByEmployeeNumber(employeeNumber);
@@ -132,7 +133,7 @@ public class RbacUserInfoServiceImpl implements RbacUserInfoService {
 			return new AjaxResult().failure("该工号不存在");
 		}
 	}
-	
+
 	//查询所有员工所有信息
 	@Override
 	public AjaxResult selectAllUserInfo() {
@@ -143,17 +144,31 @@ public class RbacUserInfoServiceImpl implements RbacUserInfoService {
 			return new AjaxResult().failure("不存在，请检查数据库表");
 		}
 	}
-    
-	
+
+
 	//根据员工姓名查找员工所有信息
 	@Override
 	public AjaxResult selectByUserName(String name) {
-      List<RbacUserInfo> list = rbacUserInfoMapper.selectByUserName(name);
-      if (list!=null&&list.size()>0) {
-		return new AjaxResult().success(list);
-	}else {
-		return new AjaxResult().failure("该员工不存在");
+		List<RbacUserInfo> list = rbacUserInfoMapper.selectByUserName(name);
+		if (list!=null&&list.size()>0) {
+			return new AjaxResult().success(list);
+		}else {
+			return new AjaxResult().failure("该员工不存在");
+		}
 	}
+	//插入员工全部信息
+	@Override
+	@Transactional
+	public AjaxResult insertUserAndOrganization(Organization organization, RbacUserInfo rbacUserInfo) {
+		int insertOrganization = organizationMapper.insertOrganization(organization);
+		Long id = organizationMapper.selectMaxId();
+		rbacUserInfo.setOrganizationId(id);
+		int insert = rbacUserInfoMapper.insert(rbacUserInfo);
+		if (insertOrganization>0&&insert>0) {
+			return new AjaxResult().success("新增成功");
+		}else {
+			return new AjaxResult().failure("新增失败");
+		}
 	}
 
 

@@ -41,6 +41,11 @@ public class AjaxResult {
 		return data;
 	}
 
+	@Override
+	public String toString() {
+		return "AjaxResult [meta=" + meta + ", data=" + data + "]";
+	}
+
 	public class Meta {
 
 		private boolean success;
@@ -62,5 +67,11 @@ public class AjaxResult {
 		public String getMessage() {
 			return message;
 		}
+
+		@Override
+		public String toString() {
+			return "Meta [success=" + success + ", message=" + message + "]";
+		}
+		
 	}
 }

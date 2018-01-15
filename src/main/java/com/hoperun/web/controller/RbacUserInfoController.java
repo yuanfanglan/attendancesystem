@@ -1,4 +1,7 @@
 package com.hoperun.web.controller;
+import java.text.ParseException;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,13 +10,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.hoperun.common.util.DateUtil;
 import com.hoperun.json.AjaxResult;
 import com.hoperun.mapper.OrganizationMapper;
 import com.hoperun.mapper.RbacUserInfoMapper;
+import com.hoperun.pojo.Organization;
 import com.hoperun.pojo.RbacUserInfo;
 import com.hoperun.service.RbacUserInfoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import oracle.sql.DATE;
 
 /**
  * 关于RbacUserInfo的一些业务
@@ -34,7 +41,7 @@ public class RbacUserInfoController {
 	 * */
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public ModelAndView Index(ModelAndView mv){
-		mv.setViewName("company");
+		mv.setViewName("index");
 		return mv;
 }
 
@@ -58,9 +65,9 @@ public class RbacUserInfoController {
 	 * @param name
 	 * */
 	@ApiOperation(value="用户登录")
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public AjaxResult Login(@ApiParam(value="工号",required=true)@RequestParam("employeeNumber")String employeeNumber,@ApiParam(value="工号",required=true)@RequestParam("password")String password,HttpSession session){
-		if (employeeNumber!=null&&employeeNumber!=""&&password!=null&&password!="") {	
+	@RequestMapping(value="/login",method=RequestMethod.GET)
+	public AjaxResult Login(@ApiParam(value="工号",required=true)@RequestParam("employeeNumber")String employeeNumber,@ApiParam(value="密码",required=true)@RequestParam("password")String password,HttpSession session){
+		if (employeeNumber!=null&&employeeNumber!=""&&password!=null&&password!="") {
 			AjaxResult login = rbacUserInfoService.login(employeeNumber,password);
 			if(login.getMeta().isSuccess()==true){
 				Object user = login.getData();
@@ -167,6 +174,28 @@ public class RbacUserInfoController {
 			return new AjaxResult().failure("请先选择需要删除的选项");
 		}
 		
+	}
+	
+	/**
+	 * 新增员工及员工部门等信息
+	 * @param organization rbacUserInfo
+	 * @return
+	 * @param birth
+	 * @throws ParseException 
+	 * */
+	@ApiOperation(value="新增员工及员工部门等信息")
+	@RequestMapping(value="insertUserAndOrganization",method=RequestMethod.POST)
+	public AjaxResult insertUserAndOrganization(Organization organization,RbacUserInfo rbacUserInfo,@RequestParam("birth") String birth) throws ParseException{
+		System.out.println("organization:"+organization);
+		System.out.println("rbacUserInfo:"+rbacUserInfo);
+		System.out.println(rbacUserInfo.getBirthDate());
+		if (organization!=null&&rbacUserInfo!=null) {
+			Date date = DateUtil.dateFormate(birth);
+			rbacUserInfo.setBirthDate(date);
+			return rbacUserInfoService.insertUserAndOrganization(organization, rbacUserInfo);
+		}else {
+			return new AjaxResult().failure("请填写完整信息");
+		}
 	}
 
 }

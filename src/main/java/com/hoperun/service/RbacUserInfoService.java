@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.hoperun.json.AjaxResult;
+import com.hoperun.pojo.Organization;
 import com.hoperun.pojo.RbacUserInfo;
 import com.hoperun.pojo.RbacUserInfoExample;
 
@@ -21,10 +22,13 @@ public interface RbacUserInfoService {
 	int deleteByExample(RbacUserInfoExample example);
 	//根据id删除
 	AjaxResult deleteByPrimaryKey(Long id);
-
+    
 	int insert(RbacUserInfo record);
-
-	int insertSelective(RbacUserInfo record);
+	
+	//插入员工全部信息
+    AjaxResult insertUserAndOrganization(Organization organization,RbacUserInfo rbacUserInfo);
+	
+    int insertSelective(RbacUserInfo record);
 
 	List<RbacUserInfo> selectByExample(RbacUserInfoExample example);
 

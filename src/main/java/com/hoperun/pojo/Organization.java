@@ -4,7 +4,8 @@ public class Organization {
     private Long id;
 
     private String code;
-    /**所属公司*/
+    
+	/**所属公司*/
     private Company company;
     /**所属部门*/
     private Company department;
@@ -57,5 +58,9 @@ public class Organization {
 		this.userId = userId;
 	}
 
-
+@Override
+	public String toString() {
+		return "Organization [id=" + id + ", code=" + code + ", company=" + company + ", department=" + department
+				+ ", program=" + program + ", team=" + team + ", userId=" + userId + "]";
+	}
 }
