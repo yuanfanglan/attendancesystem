@@ -1,11 +1,16 @@
 package com.hoperun.config;
 
+import java.util.Collections;
+
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
+import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 
 import com.hoperun.App;
 import com.jolbox.bonecp.BoneCPDataSource;

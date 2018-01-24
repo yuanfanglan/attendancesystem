@@ -418,4 +418,26 @@
       GENDER = #{gender,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+  
+   <update id="updateByEmployeeNumber" parameterType="com.hoperun.pojo.RbacUserInfo">
+    update RBAC_USER_INFO
+    set BIRTH_DATE = #{birthDate,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      DEGREE = #{degree,jdbcType=VARCHAR},
+      EMPLOYEE_NUMBER = #{employeeNumber,jdbcType=VARCHAR},
+      FOUNDER = #{founder,jdbcType=VARCHAR},
+      IF_ON_DUTY = #{ifOnDuty,jdbcType=VARCHAR},
+      LEAVE_DATE = #{leaveDate,jdbcType=TIMESTAMP},
+      MODIFIER = #{modifier,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      NAME = #{name,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      NUMBER1 = #{number1,jdbcType=VARCHAR},
+      NUMBER2 = #{number2,jdbcType=VARCHAR},
+      NUMBER3 = #{number3,jdbcType=VARCHAR},
+      NUMBER4 = #{number4,jdbcType=VARCHAR},
+      ORGANIZATION_ID = #{organizationId,jdbcType=DECIMAL},
+      GENDER = #{gender,jdbcType=VARCHAR}
+    where EMPLOYEE_NUMBER = #{employeeNumber,jdbcType=VARCHAR}
+  </update> 
 </mapper>

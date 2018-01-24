@@ -1,5 +1,7 @@
 package com.hoperun.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,4 +33,12 @@ public AjaxResult insertCompany(Company company){
 	}
 
 }
+
+@ApiOperation(value="查询所有公司或部门信息")
+@RequestMapping(value="selectAllCompany",method=RequestMethod.GET)
+public AjaxResult selectAllCompany(){
+	List<Company> list = companyService.selectByExample();
+	return new AjaxResult().success(list);
+}
+
 }

@@ -1,9 +1,14 @@
 package com.hoperun.service.impl;
 
 import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hoperun.json.AjaxResult;
 import com.hoperun.mapper.OrganizationMapper;
 import com.hoperun.mapper.RbacUserInfoMapper;
@@ -51,7 +56,7 @@ public class RbacUserInfoServiceImpl implements RbacUserInfoService {
 
 	}
 
-	
+
 	@Override
 	public int insert(RbacUserInfo rbacUserInfo) {
 		// TODO Auto-generated method stub
@@ -171,5 +176,45 @@ public class RbacUserInfoServiceImpl implements RbacUserInfoService {
 		}
 	}
 
+	@Override
+	//修改员工信息
+	@Transactional
+	public AjaxResult updateUserByEmployeeNumber(RbacUserInfo rbacUserInfo,Organization organization) {
+		//先根据工号查出员工信息id
+		RbacUserInfo user = rbacUserInfoMapper.selectByEmployeeNumber(rbacUserInfo.getEmployeeNumber());
+		Long id = user.getOrganizationId();
+		user.setName(rbacUserInfo.getName());
+		user.setGender(rbacUserInfo.getGender());
+		user.setDegree(rbacUserInfo.getDegree());
+		user.setBirthDate(rbacUserInfo.getBirthDate());
+		user.setModifier(rbacUserInfo.getModifier());
+		user.setModifyTime(rbacUserInfo.getModifyTime());
+		//Organization organization2 = organizationMapper.selectById(id);
+		/*organization2.setCompany(organization.getCompany());
+		organization2.setDepartment(organization.getDepartment());
+        organization2.setProgram(organization.getProgram());
+        organization2.setTeam(organization.getTeam());*/
+		//user.setBirthDate(rbacUserInfo.getBirthDate());
+		int number = rbacUserInfoMapper.updateByEmployeeNumber(user);
+		organization.setId(id);
+		int number2 = organizationMapper.updateById(organization);
+		if (number>0&&number2>0) {
+			return new AjaxResult().success("修改成功");
+		}else{
+			return new AjaxResult().failure("修改失败");
+		}
+	}
+
+	//对员工分页·
+/*	public void pageHelper(){
+		//设置分页
+		//执行查询
+		PageHelper.startPage(1,1);
+		RbacUserInfoExample example=new RbacUserInfoExample();
+		List<RbacUserInfo> list = rbacUserInfoMapper.selectByExample(example);
+//		List<RbacUserInfo> list = rbacUserInfoMapper.selectAllUserInfo();
+		PageInfo<RbacUserInfo> list2=new PageInfo<RbacUserInfo>(list);
+		System.out.println(list2);
+	}*/
 
 }

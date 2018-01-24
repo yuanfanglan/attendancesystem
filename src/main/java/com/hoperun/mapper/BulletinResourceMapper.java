@@ -11,13 +11,15 @@ public interface BulletinResourceMapper {
     int deleteByExample(BulletinResourceExample example);
 
     int deleteByPrimaryKey(Long id);
-
+    
+    //新增公告
     int insert(BulletinResource record);
 
     int insertSelective(BulletinResource record);
 
     List<BulletinResource> selectByExample(BulletinResourceExample example);
-
+    
+    //根据id查找公告
     BulletinResource selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") BulletinResource record, @Param("example") BulletinResourceExample example);
@@ -25,6 +27,7 @@ public interface BulletinResourceMapper {
     int updateByExample(@Param("record") BulletinResource record, @Param("example") BulletinResourceExample example);
 
     int updateByPrimaryKeySelective(BulletinResource record);
-
+    
+    //修改公告
     int updateByPrimaryKey(BulletinResource record);
 }

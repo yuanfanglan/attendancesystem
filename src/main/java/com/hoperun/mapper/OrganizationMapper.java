@@ -2,8 +2,11 @@ package com.hoperun.mapper;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 
 import com.hoperun.pojo.Organization;
 
@@ -21,4 +24,17 @@ public interface OrganizationMapper {
 	//查询最后插入的id
 	@Select("select max(id) from organization")
 	Long selectMaxId();
+	
+	//修改员工信息
+	@Update("update organization set COMPANY=#{company.id},DEPARTMENT=#{department.id},PROGRAM=#{program.id},TEAM=#{team.id} where ID=#{id}")
+	int updateById(Organization organization);
+	
+	//根据id查找organization表
+		@Select("select * from organization where id={id}")
+		@Results({
+			@Result(id=true,column="id",property="id"),@Result(column="COMPANY",property="company.id"),
+			@Result(column="DEPARTMENT",property="department.id"),@Result(column="PROGRAM",property="program.id"),
+			@Result(column="TEAM",property="team.id")
+		})
+		Organization selectById(Long id);
 }

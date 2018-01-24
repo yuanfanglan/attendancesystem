@@ -2,9 +2,13 @@ package com.hoperun.pojo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /** 
 * @description 公告资源
-* @author XHX
+* @author YFL
 * @date 2017年12月25日 下午3:24:01 
 */  
 public class BulletinResource {
@@ -15,15 +19,15 @@ public class BulletinResource {
     private String content;
 
     private Date createTime;
-
+    
     private Date endDate;
 
     private String founder;
 
     private String modifier;
-
+  
     private Date modifyTime;
-
+   
     private Date startDate;
 
     private String state;
@@ -117,4 +121,11 @@ public class BulletinResource {
     public void setTittle(String tittle) {
         this.tittle = tittle == null ? null : tittle.trim();
     }
+
+	@Override
+	public String toString() {
+		return "BulletinResource [id=" + id + ", code=" + code + ", content=" + content + ", createTime=" + createTime
+				+ ", endDate=" + endDate + ", founder=" + founder + ", modifier=" + modifier + ", modifyTime="
+				+ modifyTime + ", startDate=" + startDate + ", state=" + state + ", tittle=" + tittle + "]";
+	}
 }

@@ -53,4 +53,9 @@ public interface RbacUserInfoService {
 	AjaxResult selectByEmployeeNumber(String employeeNumber);
 	//查询所有员工所有信息
 	AjaxResult selectAllUserInfo();
+	//修改员工信息
+	AjaxResult updateUserByEmployeeNumber(RbacUserInfo rbacUserInfo,Organization organization);
+	//分页
+    //public void pageHelper();
+
 }

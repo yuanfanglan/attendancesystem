@@ -1,7 +1,6 @@
 package com.hoperun.web.controller;
 import java.text.ParseException;
-import java.util.Date;
-
+import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.hoperun.common.util.DateUtil;
 import com.hoperun.json.AjaxResult;
 import com.hoperun.mapper.OrganizationMapper;
 import com.hoperun.mapper.RbacUserInfoMapper;
@@ -20,8 +17,6 @@ import com.hoperun.pojo.RbacUserInfo;
 import com.hoperun.service.RbacUserInfoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import oracle.sql.DATE;
-
 /**
  * 关于RbacUserInfo的一些业务
  * @author yfl
@@ -42,6 +37,13 @@ public class RbacUserInfoController {
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public ModelAndView Index(ModelAndView mv){
 		mv.setViewName("index");
+		return mv;
+}
+	/**修改页
+	 * */
+	@RequestMapping(value="/updateUserByEmployeeNumber",method=RequestMethod.GET)
+	public ModelAndView updateUserByEmployeeNumber(ModelAndView mv){
+		mv.setViewName("updateUserByEmployeeNumber");
 		return mv;
 }
 
@@ -185,17 +187,46 @@ public class RbacUserInfoController {
 	 * */
 	@ApiOperation(value="新增员工及员工部门等信息")
 	@RequestMapping(value="insertUserAndOrganization",method=RequestMethod.POST)
-	public AjaxResult insertUserAndOrganization(Organization organization,RbacUserInfo rbacUserInfo,@RequestParam("birth") String birth) throws ParseException{
-		System.out.println("organization:"+organization);
-		System.out.println("rbacUserInfo:"+rbacUserInfo);
-		System.out.println(rbacUserInfo.getBirthDate());
+	public AjaxResult insertUserAndOrganization(Organization organization,RbacUserInfo rbacUserInfo,HttpSession session) throws ParseException{
 		if (organization!=null&&rbacUserInfo!=null) {
-			Date date = DateUtil.dateFormate(birth);
-			rbacUserInfo.setBirthDate(date);
+			RbacUserInfo rbacUserInfo2=(RbacUserInfo)session.getAttribute("user");
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			rbacUserInfo.setCreateTime(df.parse(df.format(System.currentTimeMillis())));
+			rbacUserInfo.setFounder(rbacUserInfo2.getName());
 			return rbacUserInfoService.insertUserAndOrganization(organization, rbacUserInfo);
 		}else {
 			return new AjaxResult().failure("请填写完整信息");
 		}
 	}
+	
+	/**
+	 * 修改员工全部信息
+	 * @param rbacUserInfo
+	 * @param organization
+	 * @return
+	 * @throws ParseException 
+	 * */
+	@ApiOperation(value="修改员工全部信息")
+	@RequestMapping(value="updateUserByEmployeeNumber",method=RequestMethod.POST)
+	public AjaxResult updateUserByEmployeeNumber(RbacUserInfo rbacUserInfo,Organization organization,HttpSession session) throws ParseException{
+		if (rbacUserInfo.getEmployeeNumber()!=null) {
+			RbacUserInfo rbacUserInfo2=(RbacUserInfo)session.getAttribute("user");
+			rbacUserInfo.setModifier(rbacUserInfo2.getName());
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			rbacUserInfo.setModifyTime(df.parse(df.format(System.currentTimeMillis())));
+			return rbacUserInfoService.updateUserByEmployeeNumber(rbacUserInfo, organization);
+		}else {
+			return new AjaxResult().failure("请填入工号");
+		}
+	}
+	
+	/**
+	 * 员工分页
+	 * */
+	/*@ApiOperation(value="员工分页")
+	@RequestMapping(value="pageHelper",method=RequestMethod.GET)
+	public void pageHelper(){
+		rbacUserInfoService.pageHelper();
+	}*/
 
 }

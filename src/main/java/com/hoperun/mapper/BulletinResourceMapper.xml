@@ -107,6 +107,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.hoperun.pojo.BulletinResource">
+  <selectKey keyColumn="ID" keyProperty="id" resultType="java.lang.Long" order="BEFORE">
+  select seq_bulletin.nextval from dual
+  </selectKey>
     insert into BULLETIN_RESOURCE (ID, CODE, CONTENT, 
       CREATE_TIME, END_DATE, FOUNDER, 
       MODIFIER, MODIFY_TIME, START_DATE, 

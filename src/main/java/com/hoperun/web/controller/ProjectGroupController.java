@@ -1,5 +1,7 @@
 package com.hoperun.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,5 +34,12 @@ public AjaxResult insertCompany(ProjectGroup projectGroup){
 		return new AjaxResult().failure("新增失败");
 	}
 	
+}
+
+@ApiOperation(value="查询所有项目群或项目组")
+@RequestMapping(value="selectAllGroup",method=RequestMethod.GET)
+public AjaxResult selectAllCompany(){
+	List<ProjectGroup> list = projectGroupService.selectAllGroup();
+	return new AjaxResult().success(list);
 }
 }
