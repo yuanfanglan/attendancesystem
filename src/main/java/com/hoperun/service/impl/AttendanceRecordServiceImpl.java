@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hoperun.common.util.DateUtil;
+import com.hoperun.json.AjaxResult;
 import com.hoperun.mapper.AttendanceRecordMapper;
 import com.hoperun.pojo.AttendanceRecord;
 import com.hoperun.pojo.AttendanceRecordExample;
@@ -157,5 +158,20 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
 				e.printStackTrace();
 			}
 		return wb;
+	}
+
+	@Override
+	//插入考勤记录
+	public AjaxResult insert(AttendanceRecord record) {
+		if (record!=null) {
+			int result=arm.insert(record);
+			if (result>0) {
+				return new AjaxResult().success();
+			}else {
+				return new AjaxResult().failure();
+			}
+		}else {
+			return new AjaxResult().failure("插入数据不能为空");
+		}
 	}
 }

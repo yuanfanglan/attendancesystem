@@ -2,47 +2,49 @@ package com.hoperun.pojo;
 
 /** 
 * @description 考勤工作
-* @author XHX
+* @author YFL
 * @date 2017年12月25日 下午3:21:29 
 */  
 public class AttendanceWork {
     private Long id;
 
-    private Long rid;
+    private AttendanceRecord attendanceRecord;
 
-    private Long wid;
+    private WorkTime workTime;
 
-    private Long rbacUserInfoId;
+    private RbacUserInfo rbacUserInfo;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getRid() {
-        return rid;
-    }
+	public AttendanceRecord getAttendanceRecord() {
+		return attendanceRecord;
+	}
 
-    public void setRid(Long rid) {
-        this.rid = rid;
-    }
+	public void setAttendanceRecord(AttendanceRecord attendanceRecord) {
+		this.attendanceRecord = attendanceRecord;
+	}
 
-    public Long getWid() {
-        return wid;
-    }
+	public WorkTime getWorkTime() {
+		return workTime;
+	}
 
-    public void setWid(Long wid) {
-        this.wid = wid;
-    }
+	public void setWorkTime(WorkTime workTime) {
+		this.workTime = workTime;
+	}
 
-    public Long getRbacUserInfoId() {
-        return rbacUserInfoId;
-    }
+	public RbacUserInfo getRbacUserInfo() {
+		return rbacUserInfo;
+	}
 
-    public void setRbacUserInfoId(Long rbacUserInfoId) {
-        this.rbacUserInfoId = rbacUserInfoId;
-    }
+	public void setRbacUserInfo(RbacUserInfo rbacUserInfo) {
+		this.rbacUserInfo = rbacUserInfo;
+	}
+
+   
 }

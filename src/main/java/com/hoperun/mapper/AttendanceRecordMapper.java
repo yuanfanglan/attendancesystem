@@ -11,7 +11,8 @@ public interface AttendanceRecordMapper {
     int deleteByExample(AttendanceRecordExample example);
 
     int deleteByPrimaryKey(Long id);
-
+    
+    //插入考勤记录表
     int insert(AttendanceRecord record);
 
     int insertSelective(AttendanceRecord record);

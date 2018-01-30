@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import com.hoperun.json.AjaxResult;
 import com.hoperun.pojo.AttendanceRecord;
 
 /**
@@ -26,6 +27,12 @@ public interface AttendanceRecordService {
 	String EXCEL_ADJUST_VACATE = "调休";
 	String EXCEL_OTHER_VACATE = "其他带薪假";
 	String EXCEL_ADDITION = "餐费补贴";
+	
+	/**
+	 * 插入考勤记录
+	 * @return
+	 * */
+	AjaxResult insert(AttendanceRecord record);
 
 	/**
 	 * 查询所有考勤记录

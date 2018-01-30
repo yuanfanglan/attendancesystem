@@ -4,7 +4,7 @@ import java.util.Date;
 
 /** 
 * @description 考勤记录
-* @author XHX
+* @author YFL
 * @date 2017年12月25日 下午3:20:47 
 */  
 public class AttendanceRecord {

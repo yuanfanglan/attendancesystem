@@ -118,7 +118,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  <!-- 插入考勤记录 -->
   <insert id="insert" parameterType="com.hoperun.pojo.AttendanceRecord">
+  <selectKey keyColumn="ID" keyProperty="id" resultType="java.lang.Long" order="BEFORE">
+  select seq_attendanceRecord.nextval from dual
+  </selectKey>
     insert into ATTENDANCE_RECORD (ID, SIGN_IN_LOCATION, SIGN_OUT_LOCATION, 
       COMMENTS, CREATE_TIME, CURRENT_TIME, 
       EMPLOYEE_NUMBER, END_TIME, FOUNDER, 
